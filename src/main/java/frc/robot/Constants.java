@@ -10,6 +10,4 @@ public class Constants {
     public static final int BackLeftMotor = 2;
     public static final int FrontRightMotor = 3;
     public static final int BackRightMotor = 4;
-
-
 }
