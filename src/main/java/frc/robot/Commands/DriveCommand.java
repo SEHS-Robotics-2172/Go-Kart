@@ -4,7 +4,10 @@
 
 package frc.robot.Commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.DriveSubsystem;
@@ -15,17 +18,34 @@ public class DriveCommand extends Command {
   DriveSubsystem driveSubsystem;
   DoubleSupplier speedForward;
   DoubleSupplier speedBackwards;
+  BooleanSupplier brakeMode;
+  double speed;
   
-  public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier speedForward, DoubleSupplier speedBackwards) {
+  public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier speedForward, DoubleSupplier speedBackwards, BooleanSupplier brakeMode) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveSubsystem = driveSubsystem;
     this.speedBackwards = speedBackwards;
     this.speedForward = speedForward;
+    this.brakeMode = brakeMode;
     addRequirements(driveSubsystem);
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.drive(speedForward.getAsDouble() - speedBackwards.getAsDouble());
+    speed = speedForward.getAsDouble() - speedBackwards.getAsDouble();
+
+    if(speed < driveSubsystem.getLowestDeltaSpeed()){
+      driveSubsystem.drive(0);
+    }
+    else{
+      driveSubsystem.drive(speed);
+    }
+    
+    if(brakeMode.getAsBoolean()){
+      driveSubsystem.setNeutralMode(NeutralModeValue.Brake);
+    }
+    else{
+      driveSubsystem.setNeutralMode(NeutralModeValue.Coast);
+    }
   }
 }

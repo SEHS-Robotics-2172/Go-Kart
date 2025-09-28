@@ -17,7 +17,14 @@ public class RobotContainer {
     controller = new XboxController(0);
     driveSubsystem = new DriveSubsystem();
 
-    driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, controller::getRightTriggerAxis, controller::getLeftTriggerAxis));
+    driveSubsystem.setDefaultCommand(
+      new DriveCommand(
+        driveSubsystem, 
+        controller::getRightTriggerAxis, 
+        controller::getLeftTriggerAxis,
+        controller::getBButton
+      )
+    );
 
     configureBindings();
   }

@@ -5,6 +5,7 @@
 package frc.robot.Subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -29,6 +30,23 @@ public class DriveSubsystem extends SubsystemBase {
     frontRightMotor.set(-speed);
     backLeftMotor.set(-speed);
     backRightMotor.set(-speed);
-    System.out.println("Driving");
+    // System.out.println("Driving");   // Debug
   }
+
+  public void setNeutralMode(NeutralModeValue value){
+    frontLeftMotor.setNeutralMode(value);
+    frontRightMotor.setNeutralMode(value);
+    backLeftMotor.setNeutralMode(value);
+    backRightMotor.setNeutralMode(value);
+  }
+
+  public double getLowestDeltaSpeed(){
+    double currentLowestSpeed = frontLeftMotor.get();
+    for (TalonFX iterable_element : new TalonFX[] {backLeftMotor, frontRightMotor, backRightMotor}) {
+      if(Math.abs(iterable_element.get()) < currentLowestSpeed)
+        currentLowestSpeed = iterable_element.get();
+    }
+    return currentLowestSpeed;
+  }
+    
 }
