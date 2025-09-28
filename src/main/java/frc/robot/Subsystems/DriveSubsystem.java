@@ -41,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
     backRightMotor.setNeutralMode(value);
   }
 
-  public double getLowestDeltaSpeed(){
+  public double getLowestAbsoluteSpeed(){
     double currentLowestSpeed = frontLeftMotor.get();
     for (TalonFX iterable_element : new TalonFX[] {backLeftMotor, frontRightMotor, backRightMotor}) {
       if(Math.abs(iterable_element.get()) < currentLowestSpeed)
@@ -49,7 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
     return currentLowestSpeed;
   }
-  public TalonFX getLowestDeltaSpeedMotor(){
+  public TalonFX getLowestAbsoluteSpeedMotor(){
     TalonFX currentLowestSpeedMotor = frontLeftMotor;
     for (TalonFX iterable_element : new TalonFX[] {backLeftMotor, frontRightMotor, backRightMotor}) {
       if(Math.abs(iterable_element.get()) < currentLowestSpeedMotor.get())
@@ -59,9 +59,9 @@ public class DriveSubsystem extends SubsystemBase {
   }
   
   public double getSpeed(){
-    double rotationalVelocity = getLowestDeltaSpeedMotor().getVelocity().getValueAsDouble();  // RPM
-    double linearVelocity = rotationalVelocity * 8 * Math.PI;  // Inches per Minute?
-    double convertedVelocity = (linearVelocity * 60) / 63360;
+    double rotationalVelocity = getLowestAbsoluteSpeedMotor().getVelocity().getValueAsDouble();  // RPM
+    double linearVelocity = rotationalVelocity * 8 * Math.PI;  // Inches per Minute
+    double convertedVelocity = (linearVelocity * 60) / 63360;  // Miles per Hour
     return convertedVelocity;
   }
 

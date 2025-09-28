@@ -34,18 +34,18 @@ public class DriveCommand extends Command {
   public void execute() {
     speed = speedForward.getAsDouble() - speedBackwards.getAsDouble();
 
-    if(speed < driveSubsystem.getLowestDeltaSpeed()){
-      driveSubsystem.drive(0);
-    }
-    else{
-      driveSubsystem.drive(speed);
+    if(speed < driveSubsystem.getLowestAbsoluteSpeed()){
+      speed = 0;
     }
     
     if(brakeMode.getAsBoolean()){
       driveSubsystem.setNeutralMode(NeutralModeValue.Brake);
+      speed = 0;
     }
     else{
       driveSubsystem.setNeutralMode(NeutralModeValue.Coast);
     }
+
+    driveSubsystem.drive(speed);
   }
 }
