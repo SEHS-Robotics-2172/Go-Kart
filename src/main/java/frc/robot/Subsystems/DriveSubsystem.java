@@ -24,7 +24,6 @@ public class DriveSubsystem extends SubsystemBase {
     backLeftMotor = new TalonFX(Constants.BackLeftMotor);
     frontRightMotor = new TalonFX(Constants.FrontRightMotor);
     backRightMotor = new TalonFX(Constants.BackRightMotor);
-    putSmartDashboard();
   }
 
   public void drive(double speed){
@@ -42,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
     TalonFX currentLowestSpeedMotor = frontLeftMotor;
     for (TalonFX iterable_element : new TalonFX[] {backLeftMotor, frontRightMotor, backRightMotor}) {
       if(Math.abs(iterable_element.get()) < currentLowestSpeedMotor.get())
-        currentLowestSpeedMotor = iterable_element;
+      currentLowestSpeedMotor = iterable_element;
     }
     return currentLowestSpeedMotor;
   }
@@ -53,13 +52,13 @@ public class DriveSubsystem extends SubsystemBase {
     bufferVelocity = (bufferVelocity * 60) / 63360;  // Miles per Hour
     return bufferVelocity;
   }
-
+  
   private void putSmartDashboard(){
     SmartDashboard.putNumber("Speed", Math.round(getSpeed() / 10) * 10);
   }
-
+  
   @Override
   public void periodic(){
-    
+    putSmartDashboard();
   }
 }
