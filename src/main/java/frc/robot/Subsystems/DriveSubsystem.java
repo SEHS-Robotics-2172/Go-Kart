@@ -42,12 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getLowestAbsoluteSpeed(){
-    double currentLowestSpeed = frontLeftMotor.get();
-    for (TalonFX iterable_element : new TalonFX[] {backLeftMotor, frontRightMotor, backRightMotor}) {
-      if(Math.abs(iterable_element.get()) < currentLowestSpeed)
-        currentLowestSpeed = iterable_element.get();
-    }
-    return currentLowestSpeed;
+    return getLowestAbsoluteSpeedMotor().get();
   }
   public TalonFX getLowestAbsoluteSpeedMotor(){
     TalonFX currentLowestSpeedMotor = frontLeftMotor;
@@ -59,14 +54,14 @@ public class DriveSubsystem extends SubsystemBase {
   }
   
   public double getSpeed(){
-    double rotationalVelocity = getLowestAbsoluteSpeedMotor().getVelocity().getValueAsDouble();  // RPM
-    double linearVelocity = rotationalVelocity * 8 * Math.PI;  // Inches per Minute
-    double convertedVelocity = (linearVelocity * 60) / 63360;  // Miles per Hour
-    return convertedVelocity;
+    double bufferVelocity = getLowestAbsoluteSpeedMotor().getVelocity().getValueAsDouble() * Constants.gearRation;  // RPM
+    bufferVelocity = bufferVelocity * 8 * Math.PI;  // Inches per Minute
+    bufferVelocity = (bufferVelocity * 60) / 63360;  // Miles per Hour
+    return bufferVelocity;
   }
 
   private void putSmartDashboard(){
-    SmartDashboard.putNumber("Speed", getSpeed());
+    SmartDashboard.putNumber("Speed", Math.round(getSpeed() / 10) * 10);
   }
 
   @Override
