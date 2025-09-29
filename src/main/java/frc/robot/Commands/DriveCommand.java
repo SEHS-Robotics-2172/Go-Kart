@@ -39,11 +39,7 @@ public class DriveCommand extends Command {
     }
     
     if(brakeMode.getAsBoolean()){
-      driveSubsystem.setNeutralMode(NeutralModeValue.Brake);
-      speed = 0;
-    }
-    else{
-      driveSubsystem.setNeutralMode(NeutralModeValue.Coast);
+      speed = 0.01;
     }
 
     driveSubsystem.drive(speed);

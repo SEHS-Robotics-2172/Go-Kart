@@ -24,21 +24,15 @@ public class DriveSubsystem extends SubsystemBase {
     backLeftMotor = new TalonFX(Constants.BackLeftMotor);
     frontRightMotor = new TalonFX(Constants.FrontRightMotor);
     backRightMotor = new TalonFX(Constants.BackRightMotor);
+    putSmartDashboard();
   }
 
   public void drive(double speed){
-    frontLeftMotor.set(-speed);
-    frontRightMotor.set(-speed);
-    backLeftMotor.set(-speed);
-    backRightMotor.set(-speed);
+    frontLeftMotor.set(speed);
+    frontRightMotor.set(speed);
+    backLeftMotor.set(speed);
+    backRightMotor.set(speed);
     // System.out.println("Driving");   // Debug
-  }
-
-  public void setNeutralMode(NeutralModeValue value){
-    frontLeftMotor.setNeutralMode(value);
-    frontRightMotor.setNeutralMode(value);
-    backLeftMotor.setNeutralMode(value);
-    backRightMotor.setNeutralMode(value);
   }
 
   public double getLowestAbsoluteSpeed(){
@@ -66,6 +60,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic(){
-    putSmartDashboard();
+    
   }
 }
