@@ -11,5 +11,8 @@ public class Constants {
     public static final int FrontRightMotor = 3;
     public static final int BackRightMotor = 4;
 
-    public static final double gearRation = 7.5;
+    public static final double gearRatio = 7.5;
+    public static final double wheelRadius = 4;
+
+    public static final double maxSpeed = 10;   // MPH, lowk we aren't even getting to that with this setup
 }

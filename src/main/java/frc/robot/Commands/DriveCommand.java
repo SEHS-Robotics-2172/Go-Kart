@@ -7,10 +7,10 @@ package frc.robot.Commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.DriveSubsystem;
+
+import frc.robot.Constants;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DriveCommand extends Command {
@@ -34,17 +34,12 @@ public class DriveCommand extends Command {
   public void execute() {
     speed = speedForward.getAsDouble() - speedBackwards.getAsDouble();
 
-    if(speed < driveSubsystem.getLowestAbsoluteSpeed()){
+    if(DriveSubsystem.MPHtoRPS(speed * Constants.maxSpeed) < Math.abs(driveSubsystem.getLowestAbsoluteSpeed())){
       speed = 0;
     }
     
-    if(brakeMode.getAsBoolean()){
-      driveSubsystem.setNeutralMode(NeutralModeValue.Brake);
-      speed = 0;
-    }
-    else{
-      driveSubsystem.setNeutralMode(NeutralModeValue.Coast);
-    }
+    if(brakeMode.getAsBoolean())
+      speed = 0.01;
 
     driveSubsystem.drive(speed);
   }
