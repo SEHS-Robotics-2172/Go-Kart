@@ -87,11 +87,11 @@ public class DriveSubsystem extends SubsystemBase {
   public static double RPStoMPH(double rps){
     return ((rps / Constants.gearRatio) * 60) * (Constants.wheelRadius * 2 * Math.PI) * (1/63360);
   }
-
+  
   private void putSmartDashboard(){
     SmartDashboard.putNumber("Speed", Math.round(getSpeed(getLowestAbsoluteSpeedMotor()) * 10) / 10);
   }
-
+  
   @Override
   public void periodic(){
     putSmartDashboard();

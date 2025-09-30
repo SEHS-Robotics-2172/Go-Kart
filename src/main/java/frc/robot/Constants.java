@@ -6,9 +6,9 @@ package frc.robot;
 
 /** Every value that never changes goes into this class as a static variable. */
 public class Constants {
-    public static final int FrontLeftMotor = 1;
+    public static final int FrontLeftMotor = 3;
     public static final int BackLeftMotor = 2;
-    public static final int FrontRightMotor = 3;
+    public static final int FrontRightMotor = 1;
     public static final int BackRightMotor = 4;
 
     public static final double gearRatio = 7.5;
