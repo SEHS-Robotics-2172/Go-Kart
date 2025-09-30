@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.DriveSubsystem;
 
@@ -37,7 +38,8 @@ public class DriveCommand extends Command {
     if(DriveSubsystem.MPHtoRPS(speed * Constants.maxSpeed) < Math.abs(driveSubsystem.getLowestAbsoluteSpeed())){
       speed = 0;
     }
-    
+    SmartDashboard.putNumber("RPS", driveSubsystem.getLowestAbsoluteSpeed());
+    SmartDashboard.putNumber("Wanted RPS", DriveSubsystem.MPHtoRPS(speed * Constants.maxSpeed));
     if(brakeMode.getAsBoolean())
       speed = 0.01;
 

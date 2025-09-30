@@ -4,6 +4,8 @@
 
 package frc.robot.Subsystems;
 
+import java.util.random.RandomGenerator.LeapableGenerator;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -34,20 +36,25 @@ public class DriveSubsystem extends SubsystemBase {
     leftConfig = new TalonFXConfiguration();
     rightConfig = new TalonFXConfiguration();
 
-    leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     leftConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
-    leftConfig.Slot0.kP = 0.1;
+    leftConfig.Slot0.kP = 0.095;
 
-    rightConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     rightConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
+    rightConfig.Slot0.kP = 0.095;
 
+    frontLeftMotor.getConfigurator().apply(leftConfig);
+    backLeftMotor.getConfigurator().apply(leftConfig);
+    frontRightMotor.getConfigurator().apply(rightConfig);
+    backRightMotor.getConfigurator().apply(rightConfig);
 
     velocityVoltage = new VelocityVoltage(0);
   }
 
   public void drive(double speed){
     if (speed != 0){
-      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed));
+      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed * 10));
       frontLeftMotor.setControl(velocityVoltage);
       frontRightMotor.setControl(velocityVoltage);
       backLeftMotor.setControl(velocityVoltage);
@@ -59,6 +66,7 @@ public class DriveSubsystem extends SubsystemBase {
       backLeftMotor.set(0);
       backRightMotor.set(0);
     }
+    System.out.println(velocityVoltage.Velocity);
     // System.out.println("Driving");   // Debug
   }
 
@@ -75,21 +83,21 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public static double getSpeed(TalonFX motor){
-    return RPStoMPH(motor.getVelocity().getValueAsDouble());
+    return motor.getVelocity().getValueAsDouble();
   }
 
   /*Velocity to Motor Speed */
   public static double MPHtoRPS(double mph){
-    return ((mph / 60) * (1 / (Math.PI * Constants.wheelRadius * 2)) * (63360) / 60) * Constants.gearRatio;
+    return ((mph / 60) * (1 / (Math.PI * Constants.wheelRadius * 2)) * (63360) / 60);
   }
 
   /*Motor Speed to Velocity */
   public static double RPStoMPH(double rps){
-    return ((rps / Constants.gearRatio) * 60) * (Constants.wheelRadius * 2 * Math.PI) * (1/63360);
+    return ((rps) * 60) * (Constants.wheelRadius * 2 * Math.PI) * (1/63360);
   }
   
   private void putSmartDashboard(){
-    SmartDashboard.putNumber("Speed", Math.round(getSpeed(getLowestAbsoluteSpeedMotor()) * 10) / 10);
+    SmartDashboard.putNumber("Speed", RPStoMPH(getLowestAbsoluteSpeed()));
   }
   
   @Override
