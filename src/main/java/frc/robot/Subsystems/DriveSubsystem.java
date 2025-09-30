@@ -38,11 +38,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     leftConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
-    leftConfig.Slot0.kP = 0.095;
+    leftConfig.Slot0.kP = 0.3;
 
     rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     rightConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
-    rightConfig.Slot0.kP = 0.095;
+    rightConfig.Slot0.kP = 0.3;
 
     frontLeftMotor.getConfigurator().apply(leftConfig);
     backLeftMotor.getConfigurator().apply(leftConfig);
@@ -54,7 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void drive(double speed){
     if (speed != 0){
-      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed * 10));
+      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed));
       frontLeftMotor.setControl(velocityVoltage);
       frontRightMotor.setControl(velocityVoltage);
       backLeftMotor.setControl(velocityVoltage);

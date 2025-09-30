@@ -35,7 +35,7 @@ public class DriveCommand extends Command {
   public void execute() {
     speed = speedForward.getAsDouble() - speedBackwards.getAsDouble();
 
-    if(DriveSubsystem.MPHtoRPS(speed * Constants.maxSpeed) < Math.abs(driveSubsystem.getLowestAbsoluteSpeed())){
+    if(Math.abs(DriveSubsystem.MPHtoRPS(speed * Constants.maxSpeed)) < Math.abs(driveSubsystem.getLowestAbsoluteSpeed())){
       speed = 0;
     }
     SmartDashboard.putNumber("RPS", driveSubsystem.getLowestAbsoluteSpeed());
