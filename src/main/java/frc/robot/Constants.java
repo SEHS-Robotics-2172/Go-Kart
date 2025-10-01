@@ -15,4 +15,6 @@ public class Constants {
     public static final double wheelRadius = 4;
 
     public static final double maxSpeed = 10;   // MPH, lowk we aren't even getting to that with this setup
+
+    public static final double driveMotorkP = 1; // Random value ngl
 }

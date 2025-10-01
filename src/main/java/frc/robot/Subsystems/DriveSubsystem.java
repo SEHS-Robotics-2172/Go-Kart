@@ -38,11 +38,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     leftConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
-    leftConfig.Slot0.kP = 0.3;
+    leftConfig.Slot0.kP = Constants.driveMotorkP;
 
     rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     rightConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
-    rightConfig.Slot0.kP = 0.3;
+    rightConfig.Slot0.kP = Constants.driveMotorkP;
 
     frontLeftMotor.getConfigurator().apply(leftConfig);
     backLeftMotor.getConfigurator().apply(leftConfig);
@@ -88,12 +88,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   /*Velocity to Motor Speed */
   public static double MPHtoRPS(double mph){
-    return ((mph / 60) * (1 / (Math.PI * Constants.wheelRadius * 2)) * (63360) / 60);
+    return ((mph / 60) / (Math.PI * Constants.wheelRadius * 2) * (63360) / 60);
   }
 
   /*Motor Speed to Velocity */
   public static double RPStoMPH(double rps){
-    return ((rps) * 60) * (Constants.wheelRadius * 2 * Math.PI) * (1/63360);
+    return ((rps) * 60) * (Constants.wheelRadius * 2 * Math.PI) / (63360) * 60;
   }
   
   private void putSmartDashboard(){
