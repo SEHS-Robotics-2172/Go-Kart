@@ -54,7 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void drive(double speed){
     if (speed != 0){
-      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed));
+      velocityVoltage.withVelocity(MPHtoRPS(speed * Constants.maxSpeed *2));
       frontLeftMotor.setControl(velocityVoltage);
       frontRightMotor.setControl(velocityVoltage);
       backLeftMotor.setControl(velocityVoltage);
