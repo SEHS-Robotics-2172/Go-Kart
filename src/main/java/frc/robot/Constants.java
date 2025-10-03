@@ -16,5 +16,6 @@ public class Constants {
 
     public static final double maxSpeed = 10;   // MPH, lowk we aren't even getting to that with this setup
 
-    public static final double driveMotorkP = 3; // Random value ngl
+    public static final double driveMotorkP = 0.5; // Random value ngl
+    public static final double driveMotorkV = 0.2;
 }

@@ -39,10 +39,12 @@ public class DriveSubsystem extends SubsystemBase {
     leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     leftConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
     leftConfig.Slot0.kP = Constants.driveMotorkP;
+    leftConfig.Slot0.kV = Constants.driveMotorkV;
 
     rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     rightConfig.Feedback.SensorToMechanismRatio = Constants.gearRatio;
     rightConfig.Slot0.kP = Constants.driveMotorkP;
+    rightConfig.Slot0.kV = Constants.driveMotorkV;
 
     frontLeftMotor.getConfigurator().apply(leftConfig);
     backLeftMotor.getConfigurator().apply(leftConfig);
