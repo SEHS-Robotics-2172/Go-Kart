@@ -4,28 +4,26 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Commands.DriveCommand;
 import frc.robot.Subsystems.DriveSubsystem;
 
 public class RobotContainer {
-  private Joystick controller;
+  private XboxController controller;
   private DriveSubsystem driveSubsystem;
   public RobotContainer() {
-    controller = new Joystick(0);
+    controller = new XboxController(0);
     driveSubsystem = new DriveSubsystem();
 
     driveSubsystem.setDefaultCommand(
       new DriveCommand(
         driveSubsystem, 
-        () -> {return (controller.getRawAxis(3) + 1) / 2;}, 
+        () -> {return (controller.getRightTriggerAxis() + 1) / 2;}, 
         () -> controller.getRawAxis(1),
         () -> {
-          if (controller.getRawAxis(2) <= -0.9)
+          if (controller.getLeftTriggerAxis() <= -0.9)
             return true;
           else
             return false;

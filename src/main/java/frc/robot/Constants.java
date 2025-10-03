@@ -14,7 +14,8 @@ public class Constants {
     public static final double gearRatio = 7.5;
     public static final double wheelRadius = 4;
 
-    public static final double maxSpeed = 10;   // MPH, lowk we aren't even getting to that with this setup
+    public static final double maxSpeed = 10;   // MPH,
 
-    public static final double driveMotorkP = 6.7; // Random value ngl
+    public static final double driveMotorkP = 1; // TODO: Should be a small value to make up for resistance after kV is applied
+    public static final double driveMotorkV = 1; // TODO: TUNE THIS BEFORE ANYTHING ELSE HAPPENS 
 }
